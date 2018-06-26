@@ -9,9 +9,6 @@ Processor::Processor() : name(""){
 Processor::Processor(std::string& n) : name(n){
     cout<< "Processor(string) " << endl;
 }
-Processor::Processor(const char * name) : name(name){
-    cout<< "Processor(const char *) " << endl;
-}
 void Processor::run0(){
     std::cout<<"hello run0"<<std::endl;
 }

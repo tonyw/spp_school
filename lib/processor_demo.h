@@ -11,7 +11,6 @@ namespace meituan {
             public:
                 ProcessorDEMO();
                 ProcessorDEMO(std::string& name);
-                ProcessorDEMO(const char * name);
                 void run0();
                 void run1();
                 void run2();
@@ -19,14 +18,11 @@ namespace meituan {
             private:
                 std::string attr;
         };
-
-        inline Processor* getProcessorDEMOInstance(std::string& name){
-            return new ProcessorDEMO(name);
-        }
-
-        inline Processor* getProcessorDEMOInstance(const char * name){
-            return new ProcessorDEMO(name);
-        }
+    }
+}
+extern "C" {
+    meituan::afo::Processor* getProcessorInstance(std::string& name){
+        return new meituan::afo::ProcessorDEMO(name);
     }
 }
 

@@ -10,9 +10,6 @@ ProcessorDEMO::ProcessorDEMO(){
 ProcessorDEMO::ProcessorDEMO(std::string& name):Processor(name){
     cout<<"ProcessorDEMO(string)"<<endl;
 }
-ProcessorDEMO::ProcessorDEMO(const char * name):Processor(name){
-    cout<<"ProcessorDEMO(const char *)"<<endl;
-}
 
 void ProcessorDEMO::run0(){
     cout<<"ProcessorDEMO run0"<<endl;

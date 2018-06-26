@@ -1,12 +1,14 @@
-#include "processor_manager.h"
-#include "processor.h"
 #include <iostream>
 #include <string>
 #include <memory>
+#include <dlfcn.h>
 
-#include "processor_demo.h"
+#include "processor_manager.h"
+#include "processor.h"
 using namespace meituan::afo;
 using namespace std;
+
+typedef Processor* (*INSTANCE_FUNC)(std::string&);
 
 void ProcessorManager::setup(std::string& jsonstr){
     cout<< "setup " <<jsonstr<< endl;    
@@ -14,29 +16,24 @@ void ProcessorManager::setup(std::string& jsonstr){
 
 void ProcessorManager::process(){
     
-    // object
-    // string name("aa");
-    // ProcessorDEMO demo(name);
-    // demo.run0();
+    INSTANCE_FUNC get_instance = NULL;
 
-    // shared pointer
-    // string pname("p1");
-    // std::shared_ptr<Processor> p = std::make_shared<ProcessorDEMO>(pname);
-    // p->run0();
-    // const char * p2Name = "p2";
-    // std::shared_ptr<Processor> p2 = std::make_shared<ProcessorDEMO>(p2Name);
-    // p2->run0();
-    // cout<<"finish -----invoke---------"<<endl;
-
+    void *handle = dlopen("./bazel-bin/lib/libprocessor_demo.so", RTLD_NOW);
+    if (NULL == handle){
+        cout<<"dlopen fail "<<dlerror()<<endl;
+        return;
+    }
+    *(void **) (&get_instance) = dlsym(handle, "getProcessorInstance");
+    char *errorMsg;
+    if ((errorMsg = dlerror()) != NULL)  {
+       cout<<errorMsg<<endl;
+       return;
+    }
     //pointer
     string name("aa");
     std::shared_ptr<Processor> p;
-    p.reset(getProcessorDEMOInstance(name));
+    p.reset(get_instance(name));
     p->run0();
-    const char * p2Name = "p2";
-    std::shared_ptr<Processor> p2;
-    p2.reset(getProcessorDEMOInstance(p2Name));
-    p2->run0();
     cout<<"finish -----invoke---------"<<endl;
 }
 

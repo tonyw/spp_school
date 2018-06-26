@@ -6,7 +6,7 @@ using namespace std;
 Processor::Processor() : name(""){
     cout<< "Processor() " <<endl;
 }
-Processor::Processor(std::string& n) : name(n){
+Processor::Processor(std::string n) : name(n){
     cout<< "Processor(string) " << endl;
 }
 void Processor::run0(){

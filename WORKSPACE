@@ -1,27 +1,5 @@
 workspace(name = "my_cpp_playground")
 
-# load("//third_party:repo.bzl", "tensorflow_http_archive")
-
-# # TensorFlow depends on "io_bazel_rules_closure" so we need this here.
-# # Needs to be kept in sync with the same target in TensorFlow's WORKSPACE file.
-# http_archive(
-#     name = "io_bazel_rules_closure",
-#     sha256 = "a38539c5b5c358548e75b44141b4ab637bba7c4dc02b46b1f62a96d6433f56ae",
-#     strip_prefix = "rules_closure-dbb96841cc0a5fb2664c37822803b06dab20c7d1",
-#     urls = [
-#         "https://mirror.bazel.build/github.com/bazelbuild/rules_closure/archive/dbb96841cc0a5fb2664c37822803b06dab20c7d1.tar.gz",
-#         "https://github.com/bazelbuild/rules_closure/archive/dbb96841cc0a5fb2664c37822803b06dab20c7d1.tar.gz",  # 2018-04-13
-#     ],
-# )
-
-# tensorflow_http_archive(
-#     name = "org_tensorflow",
-#     sha256 = "",
-#     git_commit = "285c6a0fa1d5a3d2a96507ac9f707ce5c0e3ac1f",
-# )
-
-# load('@org_tensorflow//tensorflow:workspace.bzl', 'tf_workspace')
-
 http_archive(
     name = "com_google_googletest",
     urls = [
@@ -43,12 +21,11 @@ http_archive(
 )
 
 new_http_archive(
-    name = "jsoncpp_git",
-    urls = [
-        "https://mirror.bazel.build/github.com/open-source-parsers/jsoncpp/archive/11086dd6a7eba04289944367ca82cea71299ed70.tar.gz",
-        "https://github.com/open-source-parsers/jsoncpp/archive/11086dd6a7eba04289944367ca82cea71299ed70.tar.gz",
-    ],
-    sha256 = "07d34db40593d257324ec5fb9debc4dc33f29f8fb44e33a2eeb35503e61d0fe2",
-    strip_prefix = "jsoncpp-11086dd6a7eba04289944367ca82cea71299ed70",
-    build_file = "third_party/jsoncpp.BUILD",
+    name = "com_github_tencent_rapidjson",
+      urls = [
+          "https://github.com/Tencent/rapidjson/archive/v1.1.0.zip",
+      ],
+      sha256 = "8e00c38829d6785a2dfb951bb87c6974fa07dfe488aa5b25deec4b8bc0f6a3ab",
+      strip_prefix = "rapidjson-1.1.0",
+      build_file = "third_party/rapidjson.BUILD"
 )

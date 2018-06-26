@@ -8,7 +8,7 @@ namespace meituan {
         class Processor {
             public:
                 Processor();
-                Processor(std::string& name);
+                Processor(std::string name);
                 void virtual run0()=0;
                 void virtual run1()=0;
                 void virtual run2()=0;

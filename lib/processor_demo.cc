@@ -7,7 +7,7 @@ using namespace std;
 ProcessorDEMO::ProcessorDEMO(){
     cout<<"ProcessorDEMO()"<<endl;
 }
-ProcessorDEMO::ProcessorDEMO(std::string& name):Processor(name){
+ProcessorDEMO::ProcessorDEMO(std::string name):Processor(name){
     cout<<"ProcessorDEMO(string)"<<endl;
 }
 

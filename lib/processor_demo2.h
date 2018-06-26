@@ -1,5 +1,5 @@
-#ifndef PROCESSOR_DEMO_H_
-#define PROCESSOR_DEMO_H_
+#ifndef PROCESSOR_DEMO2_H_
+#define PROCESSOR_DEMO2_H_
 #include <string>
 #include <iostream>
 #include "processor.h"
@@ -7,14 +7,14 @@
 namespace meituan {
     namespace afo {
 
-        class ProcessorDEMO : public Processor  {
+        class ProcessorDEMO2 : public Processor  {
             public:
-                ProcessorDEMO();
-                ProcessorDEMO(std::string name);
+                ProcessorDEMO2();
+                ProcessorDEMO2(std::string name);
                 void run0();
                 void run1();
                 void run2();
-                ~ProcessorDEMO();
+                ~ProcessorDEMO2();
             private:
                 std::string attr;
         };
@@ -22,8 +22,8 @@ namespace meituan {
 }
 extern "C" {
     meituan::afo::Processor* getProcessorInstance(std::string name){
-        return new meituan::afo::ProcessorDEMO(name);
+        return new meituan::afo::ProcessorDEMO2(name);
     }
 }
 
-#endif //PROCESSOR_DEMO_H_
+#endif //PROCESSOR_DEMO2_H_

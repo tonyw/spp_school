@@ -8,32 +8,37 @@
 using namespace meituan::afo;
 using namespace std;
 
-typedef Processor* (*INSTANCE_FUNC)(std::string&);
+typedef Processor* (*INSTANCE_FUNC)(std::string);
 
-void ProcessorManager::setup(std::string& jsonstr){
-    cout<< "setup " <<jsonstr<< endl;    
-}
 
-void ProcessorManager::process(){
-    
+INSTANCE_FUNC getProcessorCreator(string path){
     INSTANCE_FUNC get_instance = NULL;
-
-    void *handle = dlopen("./bazel-bin/lib/libprocessor_demo.so", RTLD_NOW);
+    void *handle = dlopen(path.c_str(), RTLD_NOW);
     if (NULL == handle){
         cout<<"dlopen fail "<<dlerror()<<endl;
-        return;
     }
     *(void **) (&get_instance) = dlsym(handle, "getProcessorInstance");
     char *errorMsg;
     if ((errorMsg = dlerror()) != NULL)  {
        cout<<errorMsg<<endl;
-       return;
     }
+    return get_instance;
+}
+
+void ProcessorManager::setup(std::string jsonstr){
+    cout<< "setup " <<jsonstr<< endl;    
+}
+
+void ProcessorManager::process(){
+    
     //pointer
     string name("aa");
     std::shared_ptr<Processor> p;
-    p.reset(get_instance(name));
+    p.reset(getProcessorCreator("./bazel-bin/lib/libprocessor_demo1.so")(name));
     p->run0();
+    std::shared_ptr<Processor> p2;
+    p2.reset(getProcessorCreator("./bazel-bin/lib/libprocessor_demo2.so")(name));
+    p2->run0();
     cout<<"finish -----invoke---------"<<endl;
 }
 

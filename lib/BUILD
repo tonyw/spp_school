@@ -5,16 +5,23 @@ cc_library(
     srcs = ["processor.cc","processor_manager.cc"],
     hdrs = ["processor.h","processor_manager.h"],
     deps = [
-        "@jsoncpp_git//:jsoncpp",
+        "@com_github_tencent_rapidjson//:rapidjson",
     ]
 )
 
 cc_library(
-    name = "processor_demo",
+    name = "processor_demo1",
     srcs = ["processor_demo.h","processor_demo.cc"],
     deps = [
         ":processor_manager",
-        "@jsoncpp_git//:jsoncpp",
+    ]
+)
+
+cc_library(
+    name = "processor_demo2",
+    srcs = ["processor_demo2.h","processor_demo2.cc"],
+    deps = [
+        ":processor_manager",
     ]
 )
 
@@ -24,7 +31,8 @@ cc_test(
     linkopts = ["-ldl"],
     deps = [
         "//lib:processor_manager",
-        "//lib:processor_demo",
+        "//lib:processor_demo1",
+        "//lib:processor_demo2",
         "@com_google_googletest//:gtest",
         "@com_google_googletest//:gtest_main"
     ]

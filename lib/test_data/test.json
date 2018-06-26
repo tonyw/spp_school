@@ -1,0 +1,16 @@
+{
+    "processors":[
+        {
+            "name":"demo1",
+            "ldpath":"./bazel-bin/lib/libprocessor_demo1.so",
+            "framework":"caffe",
+            "type":"objectDetect"
+        },
+        {
+            "name":"demo2",
+            "ldpath":"./bazel-bin/lib/libprocessor_demo2.so",
+            "framework":"caffe",
+            "type":"objectDetect"
+        }
+    ]
+}

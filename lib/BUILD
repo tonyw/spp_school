@@ -6,6 +6,7 @@ cc_library(
     hdrs = ["processor.h","processor_manager.h"],
     deps = [
         "@com_github_tencent_rapidjson//:rapidjson",
+        "@com_github_google_glog//:glog"
     ]
 )
 
@@ -34,6 +35,8 @@ cc_test(
         "//lib:processor_demo1",
         "//lib:processor_demo2",
         "@com_google_googletest//:gtest",
-        "@com_google_googletest//:gtest_main"
+        #"@com_google_googletest//:gtest_main",
+        "@com_github_gflags_gflags//:gflags",
+        "@com_github_google_glog//:glog"
     ]
 )

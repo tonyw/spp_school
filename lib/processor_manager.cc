@@ -9,6 +9,10 @@
 
 #include "processor_manager.h"
 #include "processor.h"
+
+#include <glog/logging.h>
+#include <glog/stl_logging.h>
+
 using namespace meituan::afo;
 using namespace std;
 using namespace rapidjson;
@@ -19,12 +23,12 @@ INSTANCE_FUNC getProcessorCreator(string path){
     INSTANCE_FUNC get_instance = NULL;
     void *handle = dlopen(path.c_str(), RTLD_NOW);
     if (NULL == handle){
-        cout<<"dlopen fail "<<dlerror()<<endl;
+        LOG(INFO) <<"dlopen fail "<<dlerror();
     }
     *(void **) (&get_instance) = dlsym(handle, "getProcessorInstance");
     char *errorMsg;
     if ((errorMsg = dlerror()) != NULL)  {
-       cout<<errorMsg<<endl;
+       LOG(ERROR) <<errorMsg;
     }
     return get_instance;
 }
@@ -35,7 +39,7 @@ vector<ProcessorConfig> processJson(string json){
     Value& ps = d["processors"];
     vector<ProcessorConfig> configs;
     if(ps.IsArray()){
-        cout<<"processors size "<<ps.Size()<<endl;
+        LOG(INFO)<<"processors size "<<ps.Size();
         for(size_t i=0;i<ps.Size();i++){
             Value & p = ps[i];
             //TODO remove assert for WARN LOG
@@ -44,12 +48,12 @@ vector<ProcessorConfig> processJson(string json){
             if (p.HasMember("name") && p["name"].IsString()) {
                 config.name=p["name"].GetString();  
             }else{
-                cout<<"the processor should has name"<<endl;
+                LOG(ERROR)<<"the processor should has name";
             }
             if (p.HasMember("ldpath") && p["ldpath"].IsString()) {
                 config.ldpath=p["ldpath"].GetString();
             }else{
-                cout<<"the processor should has ldpath"<<endl;
+                LOG(ERROR)<<"the processor should has ldpath";
             }
             if (p.HasMember("framework")) {  
                 config.framework = p["framework"].GetString();  
@@ -62,7 +66,7 @@ vector<ProcessorConfig> processJson(string json){
             }
         }
     }else{
-        cout<<"why not array"<<endl;
+        LOG(ERROR)<<"why not array";
     }
     return configs;
 }
@@ -77,11 +81,11 @@ void ProcessorManager::setup(std::string jsonstr){
 }
 
 void ProcessorManager::setupFromJson(std::string jsonstr){
-    cout<< "setupFromJson " <<jsonstr<< endl;
+    LOG(INFO)<< "setupFromJson " <<jsonstr;
     setup(jsonstr); 
 }
 void ProcessorManager::setupFromLocalFile(std::string fileName){
-    cout<< "setupFromLocalFile " <<fileName<< endl;
+    LOG(INFO)<< "setupFromLocalFile " <<fileName;
     TxtFileReader reader(fileName);
     string jsonstr=reader.readAll();
     setup(jsonstr); 
@@ -92,13 +96,19 @@ void ProcessorManager::process(){
     for(size_t i=0;i<processors.size();i++){
         processors[i]->run0();
     }
-    cout<<"finish -----invoke---------"<<endl;
+    for(size_t i=0;i<processors.size();i++){
+        processors[i]->run1();
+    }
+    for(size_t i=0;i<processors.size();i++){
+        processors[i]->run2();
+    }
+    LOG(INFO)<<"finish -----invoke---------";
 }
 
 void ProcessorManager::cleanup(){
-    cout<< "cleanup" << endl;    
+    LOG(INFO)<< "cleanup";    
 }
 
 ProcessorManager::~ProcessorManager(){
-    cout<< "~ProcessorManager" << endl;    
+    LOG(INFO)<< "~ProcessorManager";    
 }

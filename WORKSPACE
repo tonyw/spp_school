@@ -12,13 +12,23 @@ http_archive(
 
 http_archive(
     name = "com_github_gflags_gflags",
+    sha256 = "6e16c8bc91b1310a44f3965e616383dbda48f83e8c1eaa2370a215057b00cabe",
+    strip_prefix = "gflags-77592648e3f3be87d6c7123eb81cbad75f9aef5a",
     urls = [
-        "https://mirror.bazel.build/github.com/gflags/gflags/archive/f8a0efe03aa69b3336d8e228b37d4ccb17324b88.tar.gz",
-        "https://github.com/gflags/gflags/archive/f8a0efe03aa69b3336d8e228b37d4ccb17324b88.tar.gz",
+        "https://mirror.bazel.build/github.com/gflags/gflags/archive/77592648e3f3be87d6c7123eb81cbad75f9aef5a.tar.gz",
+        "https://github.com/gflags/gflags/archive/77592648e3f3be87d6c7123eb81cbad75f9aef5a.tar.gz",
     ],
-    sha256 = "4d222fab8f1ede4709cdff417d15a1336f862d7334a81abf76d09c15ecf9acd1",
-    strip_prefix = "gflags-f8a0efe03aa69b3336d8e228b37d4ccb17324b88",
 )
+
+http_archive(
+    name = "com_github_google_glog",
+    urls = [
+        "https://mirror.bazel.build/github.com/google/glog/archive/c72907c4a813fa724430f8692706cb639acdb756.tar.gz",
+        "https://github.com/google/glog/archive/c72907c4a813fa724430f8692706cb639acdb756.tar.gz",
+    ],
+    strip_prefix = "glog-c72907c4a813fa724430f8692706cb639acdb756",
+)
+
 
 new_http_archive(
     name = "com_github_tencent_rapidjson",

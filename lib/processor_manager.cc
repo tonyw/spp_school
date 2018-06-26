@@ -42,8 +42,6 @@ vector<ProcessorConfig> processJson(string json){
         LOG(INFO)<<"processors size "<<ps.Size();
         for(size_t i=0;i<ps.Size();i++){
             Value & p = ps[i];
-            //TODO remove assert for WARN LOG
-            assert(p.IsObject());
             ProcessorConfig config;   
             if (p.HasMember("name") && p["name"].IsString()) {
                 config.name=p["name"].GetString();  

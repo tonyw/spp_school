@@ -9,6 +9,7 @@ namespace meituan {
                 void setup(std::string& jsonstr);
                 void process();
                 void cleanup();
+                ~ProcessorManager();
         };
     }
 }

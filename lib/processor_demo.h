@@ -4,6 +4,7 @@
 #include <iostream>
 #include "processor.h"
 
+
 namespace meituan {
     namespace afo {
 
@@ -20,10 +21,6 @@ namespace meituan {
         };
     }
 }
-extern "C" {
-    meituan::afo::Processor* getProcessorInstance(std::string name){
-        return new meituan::afo::ProcessorDEMO(name);
-    }
-}
+REGISTER_PROCESSOR(meituan::afo::ProcessorDEMO)
 
 #endif //PROCESSOR_DEMO_H_

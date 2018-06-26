@@ -22,4 +22,11 @@ namespace meituan {
     }
 }
 
+#define REGISTER_PROCESSOR(class_name)        \
+    extern "C" {                                                                      \
+        meituan::afo::Processor* getProcessorInstance(std::string processor_name){    \
+            return new class_name(processor_name);                                    \
+        }                                                                             \
+    }                                                                                 \
+
 #endif //PROCESSOR_H_

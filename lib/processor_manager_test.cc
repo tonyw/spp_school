@@ -6,8 +6,8 @@ using namespace meituan::afo;
 
 TEST(ProcessorManagerTest,run){
     ProcessorManager processorManager;
-    string jsonstr("");
-    processorManager.setup(jsonstr);
+    string filePath("./lib/test_data/test.json");
+    processorManager.setupFromLocalFile(filePath);
     processorManager.process();
     processorManager.cleanup();
 }

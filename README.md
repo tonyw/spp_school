@@ -11,6 +11,9 @@
 ```
     bazel build //main:hello-world
     bazel build //lib:processor_manager
+    bazel build //lib:processor_demo1
+    bazel build //lib:processor_demo2
+    bazel build //lib:processor_manager_test
 ```
 ```
     bazel build ...

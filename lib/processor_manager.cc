@@ -1,8 +1,8 @@
 #include <iostream>
 #include <dlfcn.h>
 #include <sstream>
-
-
+#include <fstream> 
+#include <string>
 #include "rapidjson/document.h"
 #include "rapidjson/writer.h"
 #include "rapidjson/stringbuffer.h"
@@ -18,12 +18,40 @@ using namespace std;
 using namespace rapidjson;
 typedef Processor* (*INSTANCE_FUNC)(std::string);
 
+class TxtFileReader {
+    public:
+        TxtFileReader(string filePath):filePath(filePath){
+            filestream=ifstream(filePath);
+            if (!filestream.is_open()) 
+                { 
+                    cout << "Open file failed"<< filePath << endl; 
+                } 
+        }
+        string readAll(){
+            string temp;
+            stringstream output;
+            while(getline(filestream,temp)){ 
+                output << temp; 
+            } 
+            return output.str();
+        }
+        ~TxtFileReader(){
+            filestream.close();
+        }
+    private:
+        ifstream filestream;
+        string filePath;
+
+};
+
 
 INSTANCE_FUNC getProcessorCreator(string path){
     INSTANCE_FUNC get_instance = NULL;
     void *handle = dlopen(path.c_str(), RTLD_NOW);
     if (NULL == handle){
-        LOG(INFO) <<"dlopen fail "<<dlerror();
+        LOG(ERROR) <<"dlopen fail "<<dlerror();
+    }else{
+        LOG(INFO) << "open dl file ["<<path<<"] success";
     }
     *(void **) (&get_instance) = dlsym(handle, "getProcessorInstance");
     char *errorMsg;

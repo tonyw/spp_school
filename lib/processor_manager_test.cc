@@ -16,7 +16,7 @@ TEST(ProcessorManagerTest,run){
 
 int main(int argc, char **argv) {
     testing::InitGoogleTest(&argc, argv);
-    google::InitGoogleLogging("ProcessorManagerTest");
     google::ParseCommandLineFlags(&argc, &argv, true);
+    google::InitGoogleLogging("ProcessorManagerTest");
     return RUN_ALL_TESTS();
 }

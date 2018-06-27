@@ -1,0 +1,10 @@
+Log file created at: 2018/06/27 12:53:02
+Running on machine: wx
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0627 12:53:02.992076 2339091328 processor_manager.cc:114] setupFromLocalFile ./lib/test_data/test.json
+I0627 12:53:02.992841 2339091328 processor_manager.cc:70] processors size 2
+I0627 12:53:02.993137 2339091328 processor_manager.cc:54] open dl file [./bazel-bin/lib/libprocessor_demo1.so] success
+I0627 12:53:02.993433 2339091328 processor_manager.cc:54] open dl file [./bazel-bin/lib/libprocessor_demo2.so] success
+I0627 12:53:02.993506 2339091328 processor_manager.cc:131] finish -----invoke---------
+I0627 12:53:02.993513 2339091328 processor_manager.cc:135] cleanup
+I0627 12:53:02.993517 2339091328 processor_manager.cc:139] ~ProcessorManager
